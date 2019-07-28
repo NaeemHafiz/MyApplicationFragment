@@ -3,6 +3,7 @@ package com.example.myapplicationfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,6 +32,17 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_blank, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViews();
+    }
+
+    private void initViews() {
         TextView textView = view.findViewById(R.id.text);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +50,6 @@ public class BlankFragment extends Fragment {
                 setFragment(new BlankFragment2());
             }
         });
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
-        return view;
     }
 
     // This could be moved into an abstract BaseActivity
@@ -52,8 +62,8 @@ public class BlankFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, fragment).addToBackStack("tag1");
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.framelayout, fragment).addToBackStack(null).commit();
+
     }
 
 

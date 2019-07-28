@@ -3,6 +3,7 @@ package com.example.myapplicationfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -31,7 +32,6 @@ public class BlankFragment2 extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_blank_fragment2, container, false);
-        initViews();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle2);
         return view;
     }
@@ -40,8 +40,13 @@ public class BlankFragment2 extends Fragment {
         textView = view.findViewById(R.id.text2);
         if (getArguments() != null)
             message = getArguments().getString("message", null);
-        textView.setText(message);
+        if (message != null)
+            textView.setText(message);
     }
 
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViews();
+    }
 }
