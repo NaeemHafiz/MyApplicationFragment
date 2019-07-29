@@ -1,10 +1,12 @@
 package com.example.myapplicationfragment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -28,22 +30,20 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.framelayout, fragment).addToBackStack(null).commit();
     }
 
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Toast.makeText(MainActivity.this, "helo", Toast.LENGTH_SHORT).show();
-//        if (getFragmentManager().getBackStackEntryCount() != 0) {
-//            getFragmentManager().popBackStack();
-//        } else {
-//            super.onBackPressed();
-//        }
+        if (getSupportFragmentManager().getBackStackEntryCount() != 0) {
+            getSupportFragmentManager().popBackStack();
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        super.onSupportNavigateUp();
         onBackPressed();
-        return super.onSupportNavigateUp();
-
+        return true;
     }
 }
